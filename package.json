@@ -48,7 +48,9 @@
     "webtorrent": "^2.1.34"
   },
 "scripts": {
-    "start": "npm run dev",
+    "start": "node buildServer/server.js",
+    "start-dev": "npm run dev",
+    "dev": "ts-node-dev --respawn --transpile-only --project server/tsconfig.json server/server.ts",
     "ui": "vite --host",
     "build": "npm run buildReact && npm run buildServer",
     "buildReact": "vite build && npm run typecheck",
