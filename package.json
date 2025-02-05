@@ -47,23 +47,12 @@
     "twitch-m3u8": "^1.1.5",
     "webtorrent": "^2.1.34"
   },
-  "scripts": {
+ "scripts": {
+    "start": "npm run dev",
     "ui": "vite --host",
     "build": "npm run buildReact && npm run buildServer",
     "buildReact": "vite build && npm run typecheck",
     "buildServer": "tsc --project server/tsconfig.json",
-    "dev": "ts-node-dev --respawn --transpile-only --project server/tsconfig.json server/server.ts",
-    "pm2": "pm2 start buildServer/server.js",
-    "deploy": "git fetch && git reset --hard origin/release && pm2 flush && pm2 reload buildServer/ecosystem.config.js",
-    "prettier": "prettier --write .",
-    "typecheckServer": "tsc --project server/tsconfig.json --noEmit",
-    "typecheck": "tsc --project tsconfig.json --noEmit",
-    "ncu": "ncu --semverLevel major -u",
-    "updateSnapshot": "curl -X POST localhost:3100/updateSnapshot -H 'Content-Type: application/json' -d '{\"provider\":\"Hetzner\",\"region\":\"US\"}'",
-    "testvBrowser": "docker run -d --rm --name=vbrowser --log-opt max-size=1g --net=host --shm-size=1g --cap-add=\"SYS_ADMIN\" -e DISPLAY=\":99.0\" -e NEKO_PASSWORD=user -e NEKO_PASSWORD_ADMIN=admin -e NEKO_BIND=\":5100\" -e NEKO_EPR=\":59000-59100\" -e NEKO_H264=\"1\" howardc93/vbrowser",
-    "testvlc": "docker run -d --rm --name=vlc --log-opt max-size=1g --net=host -e VLC_MEDIA=\"https://github.com/ietf-wg-cellar/matroska-test-files/raw/master/test_files/test1.mkv\" -e NEKO_PASSWORD=user -e NEKO_PASSWORD_ADMIN=admin -e NEKO_BIND=\":5100\" -e NEKO_EPR=\":59000-59100\" -e NEKO_H264=\"1\" m1k1o/neko:vlc",
-    "analyze": "source-map-explorer 'build/assets/*.js' --html result.html"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
