@@ -84,7 +84,10 @@ async function init() {
     rooms.set('/default', new Room(io, '/default'));
   }
 
-  server?.listen(config.PORT, config.HOST);
+  const renderPort = process.env.PORT || config.PORT; // Use Render's PORT env var or default
+server?.listen(renderPort, '0.0.0.0', () => { // Bind to 0.0.0.0 and use dynamic port
+  console.log(`Server listening on port ${renderPort}`); // Add a log message
+});
   // Following functions iterate over in-memory rooms
   setInterval(minuteMetrics, 60 * 1000);
   setInterval(release, releaseInterval);
