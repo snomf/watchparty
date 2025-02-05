@@ -1,10 +1,13 @@
-import { postgres } from './utils/postgres'; // Import your postgres client
+// server.ts
+import { Client } from 'pg'; // Import Client class
+import config from './config';
 
 async function testDatabaseConnection() {
+  const client = new Client(config.DATABASE_URL); // Create a new client instance
   try {
-    await postgres?.connect(); // Attempt to connect to the database
+    await client.connect(); // Attempt to connect to the database
     console.log('Database connection test: SUCCESS!'); // Log success
-    await postgres?.end(); // Close the connection
+    await client.end(); // Close the connection
   } catch (error: any) {
     console.error('Database connection test: FAILED!'); // Log failure
     console.error('Error details:', error); // Log full error details
